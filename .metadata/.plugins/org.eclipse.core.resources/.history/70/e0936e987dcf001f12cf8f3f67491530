@@ -1,0 +1,28 @@
+/*
+ * sim800l_conf.h
+ *
+ *  Created on: Jan 10, 2025
+ *      Author: Edward Student
+ */
+
+#ifndef SIM800L_CONF_H_
+#define SIM800L_CONF_H_
+
+
+#include "stm32f3xx_hal.h"
+
+// UART Configuration. Choose uart connected to sim800l
+#define SIM800L_UART_INSTANCE huart2
+
+//buffers sizes
+#define SIM800L_TX_BUFFER_SIZE 256   // Transmit buffer size
+#define SIM800L_RX_BUFFER_SIZE 512  // Receive buffer size
+#define SIM800L_SMS_BUFFER_SIZE 140  // SMS buffer. 140 is a standard size
+
+// The global buffers configuration.
+extern uint8_t SIM800L_TxData[SIM800L_TX_BUFFER_SIZE];
+extern uint8_t SIM800L_RxData[SIM800L_RX_BUFFER_SIZE];
+extern uint8_t SIM800L_SMSBuffer[SIM800L_SMS_BUFFER_SIZE];
+
+
+#endif /* SIM800L_CONF_H_ */

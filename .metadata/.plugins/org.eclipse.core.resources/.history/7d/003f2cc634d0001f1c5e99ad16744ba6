@@ -1,0 +1,136 @@
+/*
+ * sim800l.c
+ *
+ *  Created on: Jan 7, 2025
+ *      Author: Edward Student
+// */
+//#include "sim800.h"
+#include "stm32f3xx_hal.h"
+#include "usart.h"
+#include <string.h>
+#include <stdint.h>
+#include <stdio.h>
+//нокіа5110 екран
+#include "lcd5110.h"
+#include "lcd_shared.h"
+// configuration file:
+#include "sim800l_conf.h"
+
+
+static uint8_t rx_index = 0;
+static uint8_t rx_byte = 0; // Тимчасовий буфер для 1 байту
+static volatile uint8_t data_ready = 0; // готовність даних, флажок
+
+UART_HandleTypeDef *huart;
+uint8_t RxData[SIM800L_RX_BUFFER_SIZE];
+uint8_t TxData[SIM800L_TX_BUFFER_SIZE];
+
+
+void sim800l_send_command(const char *command) {
+    snprintf((char *)TxData, sizeof(TxData), "%s\r\n", command); // Копіюємо команду у буфер
+
+    LCD5110_print("Send: ", BLACK, &lcd1);
+    LCD5110_print((char *)TxData, BLACK, &lcd1); // the command we sent
+    HAL_Delay(1200);
+//    LCD5110_clear_scr(&lcd1);
+    HAL_UART_Transmit(&huart2, TxData, strlen((char *)TxData), 1000); // Надсилаємо через UART
+    LCD5110_clear_scr(&lcd1);
+}
+
+bool sim800l_receive_response(char *buffer, size_t size, uint32_t timeout) {
+    uint32_t start_tick = HAL_GetTick();
+    while (!data_ready) {
+        if ((HAL_GetTick() - start_tick) > timeout) {
+            return 0; // Таймаут
+        }
+    }
+
+    // Копіюємо дані у вказаний буфер
+    strncpy(buffer, (char *)RxData, size);
+    buffer[size - 1] = '\0'; // Гарантуємо, що рядок закінчується '\0'
+
+    // Скидаємо прапорець і очищаємо буфер
+    data_ready = 0;
+    memset(RxData, 0, sizeof(RxData));
+    rx_index = 0;
+
+    return 1; // Успіх
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
+    if (huart->Instance == USART2) { // Перевірка, що переривання з потрібного UART
+        if (rx_index < sizeof(RxData) - 1) {
+            RxData[rx_index++] = rx_byte; // Додаємо отриманий байт у буфер
+            if (rx_byte == '\n') { // Закінчення рядка
+                RxData[rx_index] = '\0'; // Завершуємо рядок
+                data_ready = 1; // Дані готові
+            }
+        } else {
+            rx_index = 0; // Переповнення буфера, скидаємо індекс
+        }
+
+        // Запускаємо прийом наступного байту
+        HAL_UART_Receive_IT(huart, &rx_byte, 1);
+    }
+}
+
+void clear_buffs_flags(){
+	memset(TxData, 0, sizeof(TxData));
+	memset(RxData, 0, sizeof(RxData));
+	rx_index = 0;
+	data_ready = 0;
+}
+
+void sim800l_init(UART_HandleTypeDef *uart_handle) {
+	LCD5110_print("Initializing of SIM800L\n", BLACK, &lcd1);
+	HAL_Delay(1000);
+	LCD5110_clear_scr(&lcd1);
+    clear_buffs_flags(); // очистка буферів та флажків
+    // Запуск прийому в режимі інтераптів
+    HAL_UART_Receive_IT(&huart2, &rx_byte, 1);
+    sim800l_send_command("AT");  // Надсилаємо тестову команду AT
+    HAL_Delay(500);
+
+    // Перевіряємо відповідь
+    if (data_ready && strstr((char *)RxData, "OK")) {
+        HAL_GPIO_WritePin(GPIOE, GPIO_PIN_9, GPIO_PIN_RESET); // Зелений LED ON
+        HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11, GPIO_PIN_SET);  // Червоний LED OFF
+        LCD5110_print((char *)RxData, BLACK, &lcd1);
+        LCD5110_print("The module is initialised\n", BLACK, &lcd1);
+        HAL_Delay(1000);
+    } else {
+        HAL_GPIO_WritePin(GPIOE, GPIO_PIN_9, GPIO_PIN_SET);   // Зелений LED OFF
+        HAL_GPIO_WritePin(GPIOE, GPIO_PIN_11, GPIO_PIN_RESET); // Червоний LED ON
+        LCD5110_print("No response ==:(\n", BLACK, &lcd1);
+        HAL_Delay(1000);
+        LCD5110_clear_scr(&lcd1);
+    }
+
+//    memset(RxData, 0, sizeof(RxData)); // Очищаємо буфер прийому
+}
+
+void send_pin(const char *pincode) {
+	char pincom[20];
+	snprintf(pincom, sizeof(pincom), "AT+CPIN=\"%s\"", pincode);
+	LCD5110_print("Sending the pincode", BLACK, &lcd1);
+	sim800l_send_command(pincom);
+}
+
+void check_net() {
+	sim800l_send_command("AT+CREG?");
+}
+
+void what_
+
+
+void send_sms(){
+	send_pin("1865");
+	if (!strstr((char *)RxData, "OK")) {
+		LCD5110_print("PIN Error", WHITE, &lcd1);
+		return;
+	}
+
+
+
+}
+

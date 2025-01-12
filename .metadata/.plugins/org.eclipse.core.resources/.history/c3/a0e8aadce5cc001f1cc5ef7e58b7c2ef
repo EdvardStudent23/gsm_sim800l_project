@@ -1,0 +1,18 @@
+/*
+ * sim800l_lib.h
+ *
+ *  Created on: Jan 7, 2025
+ *      Author: user
+ */
+
+#ifndef INC_SIM800L_LIB_H_
+#define INC_SIM800L_LIB_H_
+
+#include <stdint.h>
+#include <string.h>
+
+#endif /* INC_SIM800L_LIB_H_ */
+
+void sim800l_init(void);
+void send_ATcommand(uint8_t *command);
+void receive_ATcommand(void);

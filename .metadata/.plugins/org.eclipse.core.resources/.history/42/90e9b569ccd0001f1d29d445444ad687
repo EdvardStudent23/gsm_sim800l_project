@@ -1,0 +1,79 @@
+/*
+ * sim800l.h
+ *
+ *  Created on: Jan 7, 2025
+ *      Author: Edward Srudent
+ */
+
+#ifndef SIM800L_H_
+#define SIM800L_H_
+
+#include "stm32f3xx_hal.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+
+//extern uint8_t RxData[64];
+// Ініціалізація SIM800L модуля
+void sim800l_init(UART_HandleTypeDef *uart_handle);
+
+// Send AT-command
+void sim800l_send_command(const char *command);
+
+// Send text (without \r\n)
+void sim800l_send_text(const char *text);
+
+// get responce from SIM800L
+bool sim800l_receive_response(char *buffer, size_t buffer_size, uint32_t timeout_ms);
+
+// callback for uart interruptions
+void sim800l_uart_rx_callback(UART_HandleTypeDef *huart);
+
+void send_pin(const char *pincode); // send pincode if your sim-card needs it
+void check_net();
+void send_sms();
+
+void clear_buffs_flags();
+
+// check the information about the module
+void what_manuf();// check the information about the manufacturer (producer)
+void what_model(); // get info about a model of the module
+void what_rev(); //get info about a firmware / revision of the module
+void what_imei(); //get the imei of the module
+
+// checking the status of the module
+void signal_rate(); //check the quality of a signal
+void check_net_reg(); // check whether the sim800l is connectd to the net and show the code
+void check_sim(); // check the status of the sim-card
+void sleep_mode(); // turn on/off the sleep mode
+
+// check uart connection
+void get_baud_rate(); // show the current baud rate
+void set_baud_rate(); // you can set the baud rate. BUT its recommended
+// to set the baud rate to 9600 (standard BR of sim800l)
+
+//Check the operation mode
+void get_oper_mode(); //show the current operation mode;
+void set_oper_mode(); // set the operation mode;
+void set_default(); // set the module to default settings
+
+// network settings
+void curr_moper_info(); //show the data about current mobile 2G operator;
+void find_moper(); // show available mobile operators in your area;
+
+// module time
+void time_check(); // show the system time of the module
+
+// power suppliement
+void power_rate();
+
+// SMS
+void sms_send(const char *phone_number, const char *message);
+void sms_set_text_mode(); // set text mode SMS
+void sms_check_all();
+
+//Call function
+
+
+void rat();
+#endif /* SIM800L_H_ */

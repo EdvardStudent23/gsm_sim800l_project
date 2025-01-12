@@ -1,0 +1,14 @@
+23:40:14 **** Incremental Build of configuration Debug for project sim800l ****
+make -j16 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F303xC -c -I../Core/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc -I../Drivers/STM32F3xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F3xx/Include -I../Drivers/CMSIS/Include -I../Libraries/sim800l_lib/inc -I../Libraries/sim800l_lib/config -I../Core/Inc/lcd5110 -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "sim800l.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Documents\POC\SIM800L_project\sim800l\STM32F303VCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="sim800l.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: sim800l.elf
+ 
+arm-none-eabi-size  sim800l.elf 
+arm-none-eabi-objdump -h -S sim800l.elf  > "sim800l.list"
+   text	   data	    bss	    dec	    hex	filename
+  37932	    108	   3860	  41900	   a3ac	sim800l.elf
+Finished building: default.size.stdout
+ 
+Finished building: sim800l.list
+ 

@@ -1,0 +1,53 @@
+///*
+// * sim800l_lib.h
+// *
+// *  Created on: Jan 7, 2025
+// *      Author: user
+// */
+//
+//#ifndef INC_SIM800L_LIB_H_
+//#define INC_SIM800L_LIB_H_
+//
+//#include "sim800l_lib.h"
+//#include "stm32f3xx_hal.h"
+//#include "usart.h"
+//#include <stdint.h>
+//#include <string.h>
+//
+//
+//void sim800l_init(void);
+//void send_ATcommand(UART_HandleTypeDef *huart, char *command);
+//void receive_ATcommand(UART_HandleTypeDef *huart);
+//
+//#endif /* INC_SIM800L_LIB_H_ */
+
+#ifndef SIM800L_LIB_H
+#define SIM800L_LIB_H
+
+#include "stm32f3xx_hal.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+
+// Максимальний розмір буферів для передачі та прийому даних
+#define SIM800L_TX_BUFFER_SIZE 64
+#define SIM800L_RX_BUFFER_SIZE 64
+
+// Ініціалізація SIM800L модуля
+void sim800l_init(UART_HandleTypeDef *uart_handle);
+
+// Надсилання AT-команди
+void sim800l_send_command(const char *command);
+
+// Отримання відповіді від SIM800L
+bool sim800l_receive_response(char *buffer, size_t buffer_size, uint32_t timeout_ms);
+
+// Колбек для обробки UART-переривань
+void sim800l_uart_rx_callback(UART_HandleTypeDef *huart);
+
+void send_pin(const char *pincode);
+void check_net();
+void send_sms();
+
+void clear_buffs_flags();
+#endif // SIM800L_LIB_H

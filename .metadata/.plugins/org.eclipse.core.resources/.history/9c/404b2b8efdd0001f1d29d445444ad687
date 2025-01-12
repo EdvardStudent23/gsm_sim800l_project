@@ -1,0 +1,41 @@
+/*
+ * sim800l_conf.h
+ *
+ *  Created on: Jan 10, 2025
+ *      Author: Edward Student
+ */
+
+#ifndef SIM800L_CONF_H_
+#define SIM800L_CONF_H_
+
+#include "stm32f3xx_hal.h"
+#include "lcd5110.h"
+
+// UART Configuration. Choose uart connected to sim800l
+extern UART_HandleTypeDef *SIM800L_UART_INSTANCE;
+
+// default timeout
+#define SIM800L_DEFAULT_TIMEOUT 1000;
+
+//buffers sizes
+#ifndef SIM800L_TX_BUFFER_SIZE
+#define SIM800L_TX_BUFFER_SIZE 256   // Transmit buffer size
+#endif
+
+#ifndef SIM800L_RX_BUFFER_SIZE
+#define SIM800L_RX_BUFFER_SIZE 512  // Receive buffer size
+#endif
+
+//#define SIM800L_TX_BUFFER_SIZE 256   // Transmit buffer size
+//#define SIM800L_RX_BUFFER_SIZE 512  // Receive buffer size
+#define SIM800L_SMS_BUFFER_SIZE 140  // SMS buffer. 140 is a standard size
+
+// The global buffers configuration.
+extern uint8_t TxData[SIM800L_TX_BUFFER_SIZE];
+extern uint8_t RxData[SIM800L_RX_BUFFER_SIZE];
+extern uint8_t SMSBuffer[SIM800L_SMS_BUFFER_SIZE];
+
+// The LCD Nokia 5110.
+extern LCD5110_display lcd1;
+
+#endif /* SIM800L_CONF_H_ */

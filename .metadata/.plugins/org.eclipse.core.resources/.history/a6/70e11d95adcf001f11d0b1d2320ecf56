@@ -1,0 +1,21 @@
+/*
+ * sim800l.h
+ *
+ *  Created on: Jan 7, 2025
+ *      Author: Edward Srudent
+ */
+
+#ifndef SIM800L_H_
+#define SIM800L_H_
+
+#include "stm32f3xx_hal.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+
+//extern uint8_t RxData[64];
+
+
+
+
+#endif /* SIM800L_H_ */

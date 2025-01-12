@@ -1,0 +1,36 @@
+/*
+ * sim800l.h
+ *
+ *  Created on: Jan 7, 2025
+ *      Author: Edward Srudent
+ */
+
+#ifndef SIM800L_H_
+#define SIM800L_H_
+
+#include "stm32f3xx_hal.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include <stddef.h>
+
+//extern uint8_t RxData[64];
+// Ініціалізація SIM800L модуля
+void sim800l_init(UART_HandleTypeDef *uart_handle);
+
+// Надсилання AT-команди
+void sim800l_send_command(const char *comand);
+
+// Отримання відповіді від SIM800L
+bool sim800l_receive_response(char *buffer, size_t buffer_size, uint32_t timeout_ms);
+
+// Колбек для обробки UART-переривань
+void sim800l_uart_rx_callback(UART_HandleTypeDef *huart);
+
+void send_pin(const char *pincode);
+void check_net();
+void send_sms();
+
+void clear_buffs_flags();
+
+
+#endif /* SIM800L_H_ */
