@@ -10,14 +10,14 @@ gives an opportunity to show the result on lcd5110 nokia screen
 ### Prerequisites
 You should have:
 
-STM32CubeIDE - environment in which you can use the library
-STM32F3discovery - the STM microcontroller (it can be another model, but the library is aimed to work with this model
-SIM800L - cheap GSM module which provides a basic functionality to work with GSM, 2G network
-LCD 5110 - an lcd screen to see the result of function realisation
-Power supply unit or a battery - choose such supply unit, which can provide 2A and > 4V
-LM2596 (Optional) - for a circut
-Capacitor (100, 470, 1000 uF) - optional
-SIM-card - to connect with a network
+* STM32CubeIDE - environment in which you can use the library;
+* STM32F3discovery - the STM microcontroller (it can be another model, but the library is aimed to work with this model
+* SIM800L - cheap GSM module which provides a basic functionality to work with GSM, 2G network
+* LCD 5110 - an lcd screen to see the result of function realisation
+* Power supply unit or a battery - choose such supply unit, which can provide 2A and > 4V
+* LM2596 (Optional) - for a circut
+* Capacitor (100, 470, 1000 uF) - optional
+* SIM-card - to connect with a network
 
 
 
