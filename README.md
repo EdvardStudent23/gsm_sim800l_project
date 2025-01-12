@@ -34,4 +34,26 @@ In inc we have sim800l.h with functions declaration.
 
 sim800l.c is a main file of the library, in which you can find the realisation of functions
 
-### 
+###  STM32 Pinout
+
+The pins, which you should set: UART (i set UART2) for SIM800L, spi2 for LCD5110:
+
+![image](https://github.com/user-attachments/assets/6242a38f-dda0-40c6-bb22-c26b1d4622f4)
+
+The UART settings:
+
+- ![image](https://github.com/user-attachments/assets/dc8bb4f4-ec65-4b1b-a79e-da1e31d9a029)
+  
+Activate PA2 (TX), PA3 (RX) pins. Set the baud rate to 9600 - its a standard baud rate for sim800l
+Activate global interruptions
+Mode Asynchonius
+
+The SPI settings:
+How to set the spi2 to connect the screen and see the output on the lcd screen, you can read here:
+https://indrekis2.blogspot.com/2017/01/nokia-5110-pcd8544-stm32.html
+
+
+
+
+
+
