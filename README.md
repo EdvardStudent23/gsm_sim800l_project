@@ -7,6 +7,7 @@ The SIM800L module is used to send and receive SMS, make calls and work with dat
 The goal of a project was to provide a convinient library for connecting and controlling SIM800L via UART, using the AT command standard, and also
 gives an opportunity to show the result on lcd5110 nokia screen
 
+----
 ### Prerequisites
 You should have:
 
@@ -20,7 +21,7 @@ You should have:
 * SIM-card - to connect with a network
 
 
-
+----
 ### File structure
 The project has the following file structure:
 
@@ -34,6 +35,7 @@ In inc we have sim800l.h with functions declaration.
 
 sim800l.c is a main file of the library, in which you can find the realisation of functions
 
+----
 ###  STM32 Pinout
 
 The pins, which you should set: UART (i set UART2) for SIM800L, spi2 for LCD5110:
@@ -51,6 +53,13 @@ Mode Asynchonius
 The SPI settings:
 How to set the spi2 to connect the screen and see the output on the lcd screen, you can read here:
 https://indrekis2.blogspot.com/2017/01/nokia-5110-pcd8544-stm32.html
+
+----
+### Connect elements
+![sim800l_connection](https://github.com/user-attachments/assets/55b30a55-93cd-46f5-9d60-a4b62510d1f8)
+
+----
+### About the library. Its structure
 
 
 
