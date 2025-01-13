@@ -131,7 +131,7 @@ Led 1 is recommended to be set to the red led, led 2 - the green led. Because in
 - https://www.elecrow.com/download/SIM800%20Series_AT%20Command%20Manual_V1.09.pdf?srsltid=AfmBOopTH50l6pUUMgmvt6ZowCq-ZM8fAk2QCucRNNMbihPLKHz3Ee_6
 
 
-Summary:
+### Summary:
 I have a particular success. The functions without a connection condition work fine, sms and call should work theoretically (BUT, they werenot tested properly!), lcd screen outputs the data and results. Makefile doesnt work. You can use this code in stm32f3 projects, but you should be careful, because there is a risk to get an issue.
 
 
