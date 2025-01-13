@@ -60,6 +60,42 @@ https://indrekis2.blogspot.com/2017/01/nokia-5110-pcd8544-stm32.html
 
 ----
 ### About the library. Its structure
+The library provides some basic functionality:
+
+The description of each function you can find in a header file in /inc: sim800l.h
+
+Most needed functions used without a connection to the net is provided here such as:
+power rate, initialisiation of module, send AT command function etc.
+
+There are function to send an sms and to make a call. BUT these functions work theoretically (based on the information from different sources), because for some unknown reason, even after connecting to a good current source and adding a 1000 µF electrolytic capacitor to smooth out voltage surges when connected to the network, my module seemed to reset the connection (it did not blink for 3 seconds, i.e. it connected, but then returned to the network search mode).
+
+### How to use
+You should create such directoris (Libraries and next ones) in your project as i have in this project.
+Next check your Project -> Properties. Add the pathes here:
+
+* ![image](https://github.com/user-attachments/assets/d7f734c5-2197-48ee-986e-7aeafddd4472)
+
+  
+Also check source pathes and add the path to Libraries here:
+
+* ![image](https://github.com/user-attachments/assets/71032a8b-92a0-46d8-992f-ac3196c0ba0d)
+
+To use lcd, you should download some files:
+
+
+
+After that you can go to your main.c, where you should include:
+```
+#include "sim800l.h"
+#include "sim800l_conf.h"
+#include <string.h>
+#include <stdint.h>
+#include <stdio.h>
+
+#include "lcd5110.h"
+#include "lcd_shared.h"
+```
+
 
 
 
